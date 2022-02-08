@@ -3,7 +3,7 @@
 
 # # Facial Recognition
 
-# In[31]:
+# In[ ]:
 
 
 import sys
@@ -141,15 +141,9 @@ while True:
 video_capture.release()
 cv2.destroyAllWindows()
 
-#Need to boost FPS
+#Need to change Default Image
 #Need to change the classifier to improve speed
+#Need to boost FPS
+#Need to get rid of false positives
 #Need to review the name saving to ensure student can get closest to time and mark as present
-#Need to use dataset
-#Need to apply ML algorithm
-
-
-# In[ ]:
-
-
-
 
