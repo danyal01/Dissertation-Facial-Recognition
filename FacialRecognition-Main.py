@@ -3,7 +3,7 @@
 
 # # Facial Recognition
 
-# In[ ]:
+# In[3]:
 
 
 import sys
@@ -24,8 +24,8 @@ encodedList = []
 myList = os.listdir(path)
 
 pTime = 0
-name = "Unkown"
-currentFrameImg = face_recognition.load_image_file("UnknownImages/22_01_2022-03_22_10_PM.jpg")
+name = "UNKNOWN"
+currentFrameImg = face_recognition.load_image_file("KnownImages/Unknown.jpg")
 currentLocImg = face_recognition.face_locations(currentFrameImg)
 currentEncodeImg = face_recognition.face_encodings(currentFrameImg)[0]
 
@@ -84,15 +84,11 @@ while True:
     # Detect faces in the video
     faces = (faceCascade.detectMultiScale(
         gray,
-        scaleFactor=1.2, 
+        scaleFactor=1.1, 
         minNeighbors=5,
         minSize=(50, 50),
         flags=cv2.CASCADE_SCALE_IMAGE)
     )
-    
-    """ For more accurate name tagging can use the current frame but FPS is too low """
-    #currentFrameLoc = face_recognition.face_locations(frame)
-    #currentFrameEnc = face_recognition.face_encodings(frame, currentFrameLoc)
     
     # Calculating FPS
     cTime = time.time()
@@ -114,10 +110,13 @@ while True:
         distance = face_recognition.face_distance(encodedKnownList, i)
         #print(distance)
         resultsIndex = np.argmin(distance)
-        
         if results[resultsIndex]:
-            name = studentNames[resultsIndex].upper()
-            attendanceMark(name)
+            #print(distance[np.argmin(distance)])
+            if distance[np.argmin(distance)] > 0.42:
+                name = 'UNKNOWN'
+            else:
+                name = studentNames[resultsIndex].upper()
+                attendanceMark(name)
                 
     # Draw a rectangle around the faces, Save and encode Frame 
     for (x, y, w, h) in faces:
@@ -141,9 +140,9 @@ while True:
 video_capture.release()
 cv2.destroyAllWindows()
 
-#Need to change Default Image
-#Need to change the classifier to improve speed
-#Need to boost FPS
-#Need to get rid of false positives
-#Need to review the name saving to ensure student can get closest to time and mark as present
+
+# In[ ]:
+
+
+
 
